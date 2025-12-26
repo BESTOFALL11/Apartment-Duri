@@ -365,8 +365,6 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
                     loading="lazy"
                   />
                 </AnimatePresence>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none z-10" />
               </div>
 
               {/* Controls */}
