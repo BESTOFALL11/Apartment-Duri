@@ -50,7 +50,7 @@ const Showcase: React.FC = () => {
   };
 
   return (
-    <div id="showcase" className="relative z-10 py-32 md:py-48 overflow-hidden">
+    <div id="showcase" className="relative z-10 py-16 md:py-32 lg:py-48 overflow-hidden">
       <div className="text-center px-4 mb-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -71,7 +71,7 @@ const Showcase: React.FC = () => {
       {/* Interactive Floor Plan */}
       <InteractiveFloorPlan />
 
-      <div className="space-y-32 md:space-y-48">
+      <div className="space-y-16 md:space-y-32 lg:space-y-48">
         {ROOMS.map((room, index) => (
           <RoomSection
             key={room.id}
@@ -170,8 +170,8 @@ const InteractiveFloorPlan: React.FC = () => {
       pathLength: 1,
       opacity: 1,
       transition: {
-        duration: 1.5,
-        ease: "easeInOut"
+        duration: 0.6,
+        ease: "easeOut"
       }
     }
   };
@@ -191,12 +191,12 @@ const InteractiveFloorPlan: React.FC = () => {
       <motion.text
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        transition={{ delay: 0.3, duration: 0.2 }}
         x={x}
         y={y}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="text-[10px] md:text-xs font-bold fill-slate-400 pointer-events-none uppercase tracking-widest transition-colors duration-300 group-hover:fill-brand-primary font-sans select-none"
+        className="text-xs md:text-sm font-bold fill-slate-500 pointer-events-none uppercase tracking-widest transition-colors duration-300 group-hover:fill-brand-primary font-sans select-none"
       >
         {label}
       </motion.text>
@@ -204,13 +204,13 @@ const InteractiveFloorPlan: React.FC = () => {
   );
 
   return (
-    <div className="max-w-5xl mx-auto px-4 mb-40">
+    <div className="max-w-5xl mx-auto px-4 mb-16 md:mb-40">
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-        className="glass-card p-6 md:p-12 rounded-[3rem] relative overflow-hidden"
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        className="glass-card p-4 md:p-12 rounded-2xl md:rounded-[3rem] relative overflow-hidden"
       >
         <div className="absolute top-0 right-0 p-8 opacity-10">
           <svg width="200" height="200" viewBox="0 0 200 200">
@@ -222,7 +222,7 @@ const InteractiveFloorPlan: React.FC = () => {
           <span className="text-brand-primary text-[10px] font-bold tracking-[0.3em] uppercase opacity-70">Interactive Layout</span>
         </div>
 
-        <div className="aspect-[16/10] md:aspect-[2.2/1] w-full mt-8">
+        <div className="aspect-[1/1] md:aspect-[2.2/1] w-full mt-4 md:mt-8">
           <motion.svg
             viewBox="0 0 600 350"
             className="w-full h-full drop-shadow-sm select-none"
@@ -343,7 +343,7 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, margin: "-50px" }}
           >
-            <div className="relative rounded-[3rem] overflow-hidden aspect-[16/10] shadow-soft border border-white/60 group">
+            <div className="relative rounded-2xl md:rounded-[3rem] overflow-hidden aspect-[4/3] md:aspect-[16/10] shadow-soft border border-white/60 group">
               {/* Image Container (parallax removed for performance) */}
               <div className="w-full h-full relative">
                 <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -356,9 +356,8 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
                     animate="center"
                     exit="exit"
                     transition={{
-                      x: { type: "spring", stiffness: 200, damping: 25 },
-                      opacity: { duration: 0.4 },
-                      scale: { duration: 0.6 }
+                      x: { type: "tween", duration: 0.3 },
+                      opacity: { duration: 0.2 }
                     }}
                     alt={room.title}
                     className="absolute inset-0 w-full h-full object-cover"
@@ -414,18 +413,18 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
               </div>
             </div>
 
-            {/* Decorative background element */}
-            <div className={`absolute -bottom-10 -right-10 w-full h-full border border-brand-primary/10 rounded-[3rem] -z-10 ${isEven ? 'translate-x-4 translate-y-4' : '-translate-x-4 translate-y-4'}`}></div>
+            {/* Decorative background element - hidden on mobile for performance */}
+            <div className={`hidden md:block absolute -bottom-10 -right-10 w-full h-full border border-brand-primary/10 rounded-[3rem] -z-10 ${isEven ? 'translate-x-4 translate-y-4' : '-translate-x-4 translate-y-4'}`}></div>
           </motion.div>
 
           {/* Text Block - Made Smaller (approx 40%) */}
           <div className="w-full lg:w-[38%] relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="glass-card p-6 md:p-10 rounded-[2.5rem]"
+              transition={{ duration: 0.4 }}
+              className="glass-card p-5 md:p-10 rounded-2xl md:rounded-[2.5rem]"
             >
               <div className="flex items-center space-x-4 mb-4">
                 <span className="text-3xl font-serif text-brand-primary italic drop-shadow-[0_0_15px_rgba(2,132,199,0.2)]">0{index + 1}</span>

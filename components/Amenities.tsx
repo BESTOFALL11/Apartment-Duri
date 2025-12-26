@@ -23,9 +23,9 @@ const Amenities: React.FC = () => {
   };
 
   return (
-    <section id="amenities" className="py-32 relative overflow-hidden z-10">
+    <section id="amenities" className="py-16 md:py-32 relative overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-24">
+        <div className="text-center mb-12 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -50,8 +50,7 @@ const Amenities: React.FC = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ y: -4 }}
-              className="group p-8 rounded-[2rem] bg-white border border-slate-100/50 shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden"
+              className="group p-6 md:p-8 rounded-xl md:rounded-[2rem] bg-white border border-slate-100/50 shadow-sm md:hover:shadow-md transition-shadow duration-300 relative overflow-hidden"
             >
               {/* Hover Gradient Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
