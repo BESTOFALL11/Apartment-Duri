@@ -48,50 +48,58 @@ const Hero: React.FC = () => {
           y
         }}
       >
-        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-slate-100/90 via-slate-100/40 to-transparent z-10" />
-        <div className="absolute inset-0 bg-slate-900/10 mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-100/90" />
+        {/* Dark gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
       </motion.div>
 
       <motion.div
         style={{ y: textY, opacity }}
-        className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-5xl w-full"
+        className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-5xl w-full text-center"
       >
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="glass-card p-8 md:p-16 rounded-[3rem] w-full relative overflow-hidden shadow-soft text-center"
         >
-          {/* Subtle inner glow */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-primary/40 to-transparent"></div>
-
           <motion.div variants={itemVariants}>
-            <span className="inline-block py-1.5 px-4 rounded-full bg-brand-primary/5 border border-brand-primary/20 text-xs font-bold tracking-[0.2em] mb-6 uppercase text-brand-primary">
+            <span
+              className="inline-block py-2 px-5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-bold tracking-[0.2em] mb-8 uppercase text-white"
+              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
+            >
               Halkidiki, Greece
             </span>
           </motion.div>
 
-          <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium text-brand-dark mb-6 leading-[0.9]">
-            Apartment <span className="italic text-brand-primary text-glow">Duri</span>
+          <motion.h1
+            variants={itemVariants}
+            className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-6 leading-[0.9]"
+            style={{
+              textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4)'
+            }}
+          >
+            Apartment <span className="italic text-sky-300">Duri</span>
           </motion.h1>
 
-          <motion.p variants={itemVariants} className="max-w-xl mx-auto text-slate-600 text-lg md:text-xl font-light mb-10 leading-relaxed">
+          <motion.p
+            variants={itemVariants}
+            className="max-w-2xl mx-auto text-white/90 text-xl md:text-2xl font-medium mb-12 leading-relaxed"
+            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
+          >
             Your beachfront sanctuary with stunning sea views, soundproof comfort, and modern amenities in the heart of Halkidiki.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 justify-center">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-5 justify-center">
             <a
               href="#book"
               onClick={(e) => scrollToSection(e, 'book')}
-              className="px-8 py-4 bg-brand-primary text-white rounded-full font-bold text-lg transition-all hover:bg-sky-600 hover:scale-105 shadow-glow hover:shadow-glow-sm cursor-pointer"
+              className="px-10 py-4 bg-white text-slate-900 rounded-full font-bold text-lg transition-all hover:bg-sky-400 hover:text-white hover:scale-105 shadow-xl cursor-pointer"
             >
               Book Your Stay
             </a>
             <a
               href="#showcase"
               onClick={(e) => scrollToSection(e, 'showcase')}
-              className="px-8 py-4 bg-white border border-slate-200 text-slate-700 rounded-full font-semibold text-lg transition-all hover:bg-slate-50 hover:text-brand-primary hover:border-brand-primary/30 shadow-sm hover:shadow-md cursor-pointer"
+              className="px-10 py-4 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white rounded-full font-bold text-lg transition-all hover:bg-white hover:text-slate-900 shadow-xl cursor-pointer"
             >
               View Apartment
             </a>
@@ -103,10 +111,10 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-slate-400 hover:text-brand-primary transition-colors z-20"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20"
       >
         <a href="#showcase" onClick={(e) => scrollToSection(e, 'showcase')} aria-label="Scroll down" className="cursor-pointer p-4">
-          <ChevronDown size={32} />
+          <ChevronDown size={36} />
         </a>
       </motion.div>
     </div>
