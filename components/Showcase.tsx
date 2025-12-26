@@ -186,7 +186,7 @@ const InteractiveFloorPlan: React.FC = () => {
       <motion.path
         d={d}
         variants={pathVariants}
-        className="fill-white/80 transition-colors duration-300 stroke-slate-300 stroke-[2px] group-hover:fill-sky-50 group-hover:stroke-brand-primary"
+        className="fill-white/90 transition-colors duration-300 stroke-slate-400 stroke-[3px] group-hover:fill-sky-50 group-hover:stroke-brand-primary"
       />
       <motion.text
         initial={{ opacity: 0 }}
@@ -196,7 +196,7 @@ const InteractiveFloorPlan: React.FC = () => {
         y={y}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="text-xs md:text-sm font-bold fill-slate-500 pointer-events-none uppercase tracking-widest transition-colors duration-300 group-hover:fill-brand-primary font-sans select-none"
+        className="text-sm md:text-base font-bold fill-slate-600 pointer-events-none uppercase tracking-wider transition-colors duration-300 group-hover:fill-brand-primary font-sans select-none"
       >
         {label}
       </motion.text>
@@ -222,10 +222,11 @@ const InteractiveFloorPlan: React.FC = () => {
           <span className="text-brand-primary text-[10px] font-bold tracking-[0.3em] uppercase opacity-70">Interactive Layout</span>
         </div>
 
-        <div className="aspect-[1/1] md:aspect-[2.2/1] w-full mt-4 md:mt-8">
+        <div className="aspect-[4/5] md:aspect-[2.2/1] w-full mt-4 md:mt-8">
           <motion.svg
             viewBox="0 0 600 350"
-            className="w-full h-full drop-shadow-sm select-none"
+            className="w-full h-full select-none"
+            style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.15))' }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
