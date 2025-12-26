@@ -89,7 +89,7 @@ const Showcase: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black flex items-center justify-center backdrop-blur-md"
+            className="fixed inset-0 z-[9999] bg-black flex items-center justify-center"
             onClick={() => setFullscreenState(null)}
           >
             {/* Close Button */}
@@ -292,13 +292,7 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
+  // Removed heavy parallax for better performance on older devices
 
   const scrollToBook = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -318,23 +312,21 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
     setCurrentImageIndex((prev) => (prev - 1 + room.images.length) % room.images.length);
   };
 
+  // Simplified slide variants for better performance
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 1.1
+      x: direction > 0 ? 300 : -300,
+      opacity: 0
     }),
     center: {
       zIndex: 1,
       x: 0,
-      opacity: 1,
-      scale: 1
+      opacity: 1
     },
     exit: (direction: number) => ({
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.9
+      x: direction < 0 ? 300 : -300,
+      opacity: 0
     })
   };
 
@@ -346,15 +338,14 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
           {/* Image Block - Made Larger (approx 60%) */}
           <motion.div
             className="w-full lg:w-[58%] relative z-0"
-            style={{ scale }}
-            initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+            initial={{ opacity: 0, x: isEven ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
           >
             <div className="relative rounded-[3rem] overflow-hidden aspect-[16/10] shadow-soft border border-white/60 group">
-              {/* Parallax Container */}
-              <motion.div style={{ y }} className="w-full h-[120%] -mt-[10%] relative">
+              {/* Image Container (parallax removed for performance) */}
+              <div className="w-full h-full relative">
                 <AnimatePresence initial={false} custom={direction} mode="popLayout">
                   <motion.img
                     key={currentImageIndex}
@@ -371,25 +362,26 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
                     }}
                     alt={room.title}
                     className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </AnimatePresence>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none z-10" />
-              </motion.div>
+              </div>
 
               {/* Controls */}
               <div className="absolute inset-x-0 bottom-0 p-6 flex items-center justify-between z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/50 to-transparent">
                 <div className="flex space-x-4">
                   <button
                     onClick={handlePrev}
-                    className="p-3 rounded-full bg-white/20 text-white hover:bg-white hover:text-brand-primary backdrop-blur-md transition-all shadow-lg border border-white/20 hover:scale-110"
+                    className="p-3 rounded-full bg-white/30 text-white hover:bg-white hover:text-brand-primary transition-colors shadow-lg border border-white/20"
                     aria-label="Previous image"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
                     onClick={handleNext}
-                    className="p-3 rounded-full bg-white/20 text-white hover:bg-white hover:text-brand-primary backdrop-blur-md transition-all shadow-lg border border-white/20 hover:scale-110"
+                    className="p-3 rounded-full bg-white/30 text-white hover:bg-white hover:text-brand-primary transition-colors shadow-lg border border-white/20"
                     aria-label="Next image"
                   >
                     <ChevronRight size={20} />

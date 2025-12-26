@@ -5,9 +5,10 @@ import { ChevronDown } from 'lucide-react';
 const Hero: React.FC = () => {
   const ref = useRef(null);
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 250]);
+  // Reduced parallax intensity for better performance
+  const y = useTransform(scrollY, [0, 500], [0, 100]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const textY = useTransform(scrollY, [0, 300], [0, 100]);
+  const textY = useTransform(scrollY, [0, 300], [0, 50]);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -22,18 +23,18 @@ const Hero: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.5, ease: "easeOut" }
     },
   };
 
