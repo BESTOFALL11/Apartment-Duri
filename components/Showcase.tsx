@@ -428,7 +428,7 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
               className="glass-card p-5 md:p-10 rounded-2xl md:rounded-[2.5rem]"
             >
               <div className="flex items-center space-x-4 mb-4">
-                <span className="text-3xl font-serif text-brand-primary italic drop-shadow-[0_0_15px_rgba(2,132,199,0.2)]">0{index + 1}</span>
+                <span className="text-3xl font-bold text-brand-primary drop-shadow-[0_0_15px_rgba(2,132,199,0.2)]">0{index + 1}</span>
                 <div className="h-[1px] bg-slate-200 flex-grow"></div>
               </div>
 

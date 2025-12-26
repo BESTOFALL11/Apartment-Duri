@@ -77,7 +77,7 @@ const Hero: React.FC = () => {
               textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4)'
             }}
           >
-            Apartment <span className="italic text-sky-300">Duri</span>
+            Apartment <span className="text-sky-300 font-extrabold">Duri</span>
           </motion.h1>
 
           <motion.p
