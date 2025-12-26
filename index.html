@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apartment Duri | Sea View Living</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Space Grotesk', 'sans-serif'],
+              serif: ['Cormorant Garamond', 'serif'],
+            },
+            colors: {
+              brand: {
+                dark: '#1E293B',    // Slate 800 - Stronger dark for contrast
+                text: '#334155',    // Slate 700 - Body text
+                primary: '#0284C7', // Sky 600 - Slightly deeper/richer blue
+                accent: '#D97706',  // Amber 600 - Richer gold
+                secondary: '#14B8A6', // Teal 500
+                light: '#F1F5F9',   // Slate 100 - Visible off-white
+                surface: '#FFFFFF', // Pure white
+              },
+            },
+            boxShadow: {
+              'glow-sm': '0 4px 20px rgba(2, 132, 199, 0.1)',
+              'glow': '0 10px 40px rgba(2, 132, 199, 0.15)',
+              'soft': '0 20px 40px -10px rgba(0,0,0,0.08)',
+              'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+            },
+            animation: {
+              'spin-slow': 'spin 12s linear infinite',
+              'scroll': 'scroll 20s linear infinite',
+              'blob': 'blob 15s infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              scroll: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
+              },
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        scroll-padding-top: 100px;
+      }
+      body {
+        scroll-behavior: smooth;
+        background-color: #F1F5F9; /* Fallback Slate 100 */
+        /* Richer, multi-stop gradient for nuance */
+        background-image: linear-gradient(135deg, #F0F9FF 0%, #F1F5F9 40%, #F5F5F4 100%);
+        color: #334155;
+        overflow-x: hidden;
+      }
+      
+      /* Refined Glass Utilities */
+      .glass {
+        background: rgba(255, 255, 255, 0.4); /* More transparent */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+      }
+      
+      /* Solid/Frosted Card feel */
+      .glass-card {
+        background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 1);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+      }
+
+      .glass-heavy {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+      }
+      
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.6); /* Slate 200 border */
+      }
+
+      /* Subtle Grain for Texture */
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.4; 
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+      
+      .text-glow {
+        text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root" class="relative z-10"></div>
+    
+    <!-- Ambient Background Blobs - Saturated slightly for more "color" presence -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      <!-- Deep Sky Blob -->
+      <div class="absolute top-[-10%] left-[-10%] w-[50rem] h-[50rem] bg-sky-200/50 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob"></div>
+      <!-- Warm Sand/Amber Blob -->
+      <div class="absolute top-[10%] right-[-10%] w-[40rem] h-[40rem] bg-orange-100/60 rounded-full mix-blend-multiply filter blur-[100px] opacity-60 animate-blob animation-delay-2000"></div>
+      <!-- Soft Slate/Teal Blob -->
+      <div class="absolute -bottom-20 left-[20%] w-[45rem] h-[45rem] bg-slate-200/60 rounded-full mix-blend-multiply filter blur-[120px] opacity-70 animate-blob animation-delay-4000"></div>
+    </div>
+    
+    <div class="bg-noise"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
