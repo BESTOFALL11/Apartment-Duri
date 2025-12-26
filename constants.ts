@@ -27,9 +27,9 @@ export const ROOMS: Room[] = [
     title: "Sea-View Living Area",
     description: "A bright, air-conditioned living space that opens directly to the sea. Relax on the comfortable sofa (converts to a bed) while enjoying the flat-screen TV with satellite channels or the stunning ocean panorama.",
     images: [
-      "/images/Living_Room1.jpg",
-      "/images/Living_Room2.jpg",
-      "/images/Living_Room3.jpg"
+      "images/Living_Room1.jpg",
+      "images/Living_Room2.jpg",
+      "images/Living_Room3.jpg"
     ],
     features: ["Sea View", "Sofa Bed", "Flat-screen TV", "Tile/Marble Floor"]
   },
@@ -38,9 +38,9 @@ export const ROOMS: Room[] = [
     title: "Private Balcony",
     description: "Your front-row seat to the Aegean. This spacious terrace comes equipped with outdoor furniture, perfect for morning coffee or evening drinks while soaking in the direct sea views.",
     images: [
-      "/images/Balcony1.jpg",
-      "/images/Balcony2.jpg",
-      "/images/Balcony3.jpg"
+      "images/Balcony1.jpg",
+      "images/Balcony2.jpg",
+      "images/Balcony3.jpg"
     ],
     features: ["Direct Sea View", "Outdoor Furniture", "Dining Area", "Sun Protection"]
   },
@@ -49,9 +49,9 @@ export const ROOMS: Room[] = [
     title: "Soundproof Bedroom",
     description: "Sleep peacefully in our soundproofed master bedroom. Featuring a large double bed, spacious wardrobe, and cool tile floors to keep the temperature perfect during warm Greek nights.",
     images: [
-      "/images/Bedroom.jpg",
-      "/images/Bedroom2.jpg",
-      "/images/Bedroom3.jpg"
+      "images/Bedroom.jpg",
+      "images/Bedroom2.jpg",
+      "images/Bedroom3.jpg"
     ],
     features: ["Soundproofing", "Large Double Bed", "Wardrobe", "Socket near bed"]
   },
@@ -60,9 +60,9 @@ export const ROOMS: Room[] = [
     title: "Equipped Kitchenette",
     description: "Prepare your own meals with ease. The kitchenette includes a refrigerator, stovetop, electric kettle, and kitchenware, plus a dining table for intimate meals indoors.",
     images: [
-      "/images/Kitchen.jpg",
-      "/images/Kitchen2.jpg",
-      "/images/Kitchen3.jpg"
+      "images/Kitchen.jpg",
+      "images/Kitchen2.jpg",
+      "images/Kitchen3.jpg"
     ],
     features: ["Stovetop", "Refrigerator", "Electric Kettle", "Kitchenware"]
   },
@@ -71,9 +71,9 @@ export const ROOMS: Room[] = [
     title: "Modern Bathroom",
     description: "A private, clean bathroom featuring a shower, fresh towels, a hairdryer, and complimentary toiletries for your convenience.",
     images: [
-      "/images/Bathroom1.jpg",
-      "/images/Bathroom2.jpg",
-      "/images/Bathroom3.jpg"
+      "images/Bathroom1.jpg",
+      "images/Bathroom2.jpg",
+      "images/Bathroom3.jpg"
     ],
     features: ["Shower", "Hairdryer", "Free Toiletries", "Towels"]
   }
