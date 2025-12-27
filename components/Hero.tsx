@@ -66,7 +66,7 @@ const Hero: React.FC = () => {
               className="inline-block py-2 px-5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-bold tracking-[0.2em] mb-8 uppercase text-white"
               style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
             >
-              Halkidiki, Greece
+              Pefkochori, Halkidiki, Greece
             </span>
           </motion.div>
 
