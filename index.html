@@ -8,6 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload critical hero image -->
+  <link rel="preload" href="images/Pefkochori_Panorama.png" as="image">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <script>
@@ -144,24 +146,6 @@
 
 <body>
   <div id="root" class="relative z-10"></div>
-
-  <!-- Ambient Background Blobs - No blend mode to keep images clean -->
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-    <!-- Deep Sky Blob -->
-    <div
-      class="absolute top-[-10%] left-[-10%] w-[50rem] h-[50rem] bg-sky-200/30 rounded-full filter blur-[100px] animate-blob">
-    </div>
-    <!-- Warm Sand/Amber Blob -->
-    <div
-      class="absolute top-[10%] right-[-10%] w-[40rem] h-[40rem] bg-orange-100/30 rounded-full filter blur-[100px] animate-blob animation-delay-2000">
-    </div>
-    <!-- Soft Slate/Teal Blob -->
-    <div
-      class="absolute -bottom-20 left-[20%] w-[45rem] h-[45rem] bg-slate-200/30 rounded-full filter blur-[120px] animate-blob animation-delay-4000">
-    </div>
-  </div>
-
-  <div class="bg-noise"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
 
