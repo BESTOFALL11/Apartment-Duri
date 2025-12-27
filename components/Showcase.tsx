@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ROOMS } from '../constants';
-import { ArrowRight, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
 
 const Showcase: React.FC = () => {
   const [fullscreenState, setFullscreenState] = useState<{ images: string[], index: number } | null>(null);
@@ -295,14 +295,6 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
 
   // Removed heavy parallax for better performance on older devices
 
-  const scrollToBook = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const element = document.getElementById('book');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleNext = () => {
     setDirection(1);
     setCurrentImageIndex((prev) => (prev + 1) % room.images.length);
@@ -436,30 +428,17 @@ const RoomSection: React.FC<RoomSectionProps> = ({ room, index, onFullscreen }) 
                 {room.title}
               </h3>
 
-              <p className="text-slate-600 mb-6 leading-relaxed font-light text-base">
+              <p className="text-slate-600 leading-relaxed font-light text-base">
                 {room.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-2 mt-6">
                 {room.features.map((feature, idx) => (
                   <span key={idx} className="px-3 py-1 bg-slate-50 border border-slate-200 rounded-full text-xs text-slate-600 font-medium hover:border-brand-primary/30 transition-colors">
                     {feature}
                   </span>
                 ))}
               </div>
-
-              <motion.a
-                href="#book"
-                onClick={scrollToBook}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-between w-full sm:w-auto bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 px-6 py-3 rounded-xl font-bold tracking-wide uppercase text-xs transition-all duration-300 group cursor-pointer shadow-sm hover:shadow-md"
-              >
-                Book This Room
-                <span className="ml-4 p-1.5 bg-brand-primary rounded-full text-white group-hover:bg-brand-secondary transition-colors">
-                  <ArrowRight size={12} />
-                </span>
-              </motion.a>
             </motion.div>
           </div>
 
