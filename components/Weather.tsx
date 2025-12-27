@@ -182,21 +182,24 @@ const Weather: React.FC = () => {
                 </motion.button>
             </motion.div>
 
-            {/* Mobile Weather Widget - Top of page after hero, inline */}
+            {/* Mobile Weather Widget - Bottom Left (above safe area) */}
             <motion.div
-                initial={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="md:hidden fixed top-20 left-4 z-40"
+                className="md:hidden fixed bottom-24 left-4 z-40"
             >
                 <button
                     onClick={() => setIsExpanded(true)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/90 backdrop-blur-lg border border-white/60 shadow-md"
+                    className="flex items-center gap-2 px-3 py-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-lg active:scale-95 transition-transform"
                 >
-                    <div className={`h-7 w-7 rounded-lg bg-gradient-to-br ${weatherInfo.gradient} flex items-center justify-center text-white`}>
-                        <WeatherIcon size={14} strokeWidth={2.5} />
+                    <div className={`h-8 w-8 rounded-xl bg-gradient-to-br ${weatherInfo.gradient} flex items-center justify-center text-white shadow-sm`}>
+                        <WeatherIcon size={16} strokeWidth={2} />
                     </div>
-                    <span className="text-lg font-bold text-brand-dark">{weather.temperature}°</span>
+                    <div className="text-left pr-1">
+                        <span className="text-lg font-bold text-brand-dark leading-none">{weather.temperature}°</span>
+                        <p className="text-[10px] text-slate-500 leading-tight">{LOCATION_NAME}</p>
+                    </div>
                 </button>
             </motion.div>
 
