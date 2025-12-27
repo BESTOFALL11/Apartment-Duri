@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-6 leading-[0.9]"
+            className="text-5xl md:text-7xl lg:text-7xl font-serif font-bold text-white mb-6 leading-[0.9]"
             style={{
               textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4)'
             }}
