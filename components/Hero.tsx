@@ -104,18 +104,19 @@ const Hero: React.FC = () => {
               View Apartment
             </a>
           </motion.div>
-        </motion.div>
-      </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20 flex items-center justify-center"
-      >
-        <a href="#showcase" onClick={(e) => scrollToSection(e, 'showcase')} aria-label="Scroll down" className="cursor-pointer p-4 flex items-center justify-center">
-          <ChevronDown size={36} />
-        </a>
+          {/* Scroll Arrow - centered relative to content */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+            className="mt-12 flex justify-center"
+          >
+            <a href="#showcase" onClick={(e) => scrollToSection(e, 'showcase')} aria-label="Scroll down" className="cursor-pointer p-4 text-white/80 hover:text-white transition-colors">
+              <ChevronDown size={36} />
+            </a>
+          </motion.div>
+        </motion.div>
       </motion.div>
     </div>
   );
