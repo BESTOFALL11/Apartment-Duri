@@ -12,46 +12,46 @@ interface Review {
 
 const REVIEWS: Review[] = [
     {
-        name: "Maria S.",
+        name: "Kalina",
+        country: "Bulgaria",
+        rating: 9.0,
+        text: "Superb studio apartment. Super close to the beach and a supermarket. It has a big balcony to chill at for a lazy evening. A kitchen with everything you need, iron, hair dryer and a washing machine. We had a lovely time with my friend. The hosts are a lovely family. They were amazing, they made us feel safe and at home. Fully recommend!",
+        date: "August 2024"
+    },
+    {
+        name: "Bojan",
+        country: "United States",
+        rating: 10,
+        text: "Very good location. Minute to the beach, just what we were looking for. We will go again.",
+        date: "July 2025"
+    },
+    {
+        name: "Pantelija",
+        country: "Serbia",
+        rating: 10,
+        text: "The owners are very kind. Everything is clean and tidy. Recommendation for the facility.",
+        date: "September 2024"
+    },
+    {
+        name: "Dalibor",
+        country: "Serbia",
+        rating: 10,
+        text: "Lovely spot, close to beautiful beach, not far from the center. Very kind hosts, wonderful people! Clean, almost brand new apartment!",
+        date: "July 2023"
+    },
+    {
+        name: "Milos",
+        country: "Serbia",
+        rating: 10,
+        text: "Clean, comfortable, hosts always available. Apartment in excellent location - 100m from the beach, 50m from the supermarket. Excellent for vacation with small children. Highly recommend!",
+        date: "June 2025"
+    },
+    {
+        name: "Ilic",
         country: "Germany",
-        rating: 10,
-        text: "Absolutely stunning apartment with breathtaking sea views! The location is perfect - just steps from the beach. Everything was spotlessly clean and the host was incredibly helpful. Will definitely return!",
-        date: "October 2024"
-    },
-    {
-        name: "John D.",
-        country: "United Kingdom",
-        rating: 10,
-        text: "Best holiday accommodation we've ever stayed in. The soundproofing is amazing - we slept so well every night. The balcony view at sunset is unforgettable. Highly recommend!",
-        date: "September 2024"
-    },
-    {
-        name: "Sophie L.",
-        country: "France",
-        rating: 9.5,
-        text: "Beautiful modern apartment in the heart of Pefkochori. Walking distance to restaurants, shops, and the beach. The AC was a lifesaver in summer. Perfect for couples or small families.",
-        date: "August 2024"
-    },
-    {
-        name: "Marco R.",
-        country: "Italy",
-        rating: 10,
-        text: "Exceeded all expectations! The apartment is exactly as shown in photos - actually even better in person. The kitchen had everything we needed. The host provided great local tips.",
-        date: "July 2024"
-    },
-    {
-        name: "Anna K.",
-        country: "Poland",
-        rating: 9.8,
-        text: "We stayed for two weeks and didn't want to leave. The apartment is super comfortable with all modern amenities. The sea view from the balcony is spectacular. A hidden gem!",
-        date: "August 2024"
-    },
-    {
-        name: "Thomas B.",
-        country: "Netherlands",
-        rating: 10,
-        text: "Outstanding property! Clean, modern, and perfectly located. The beach is literally a 2-minute walk. We loved watching the sunrise from the balcony every morning. Can't wait to come back!",
-        date: "September 2024"
+        rating: 9.0,
+        text: "The accommodation was really good and comfortable, close to the beach, there was always parking in front of the building, the sound insulation is super. In any case, everything was super!",
+        date: "June 2024"
     }
 ];
 
