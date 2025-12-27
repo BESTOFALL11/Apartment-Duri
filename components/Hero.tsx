@@ -111,9 +111,9 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors z-20 flex items-center justify-center"
       >
-        <a href="#showcase" onClick={(e) => scrollToSection(e, 'showcase')} aria-label="Scroll down" className="cursor-pointer p-4">
+        <a href="#showcase" onClick={(e) => scrollToSection(e, 'showcase')} aria-label="Scroll down" className="cursor-pointer p-4 flex items-center justify-center">
           <ChevronDown size={36} />
         </a>
       </motion.div>
