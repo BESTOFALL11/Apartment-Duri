@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
 
       <motion.div
         style={{ y: textY, opacity }}
-        className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-5xl w-full text-center"
+        className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-5xl w-full text-center pt-24 md:pt-28"
       >
         <motion.div
           variants={containerVariants}
