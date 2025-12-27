@@ -36,13 +36,13 @@ export const ROOMS: Room[] = [
   {
     id: 'balcony',
     title: "Private Balcony",
-    description: "Your front-row seat to the Aegean. This spacious terrace comes equipped with outdoor furniture, perfect for morning coffee or evening drinks while soaking in the direct sea views.",
+    description: "Unwind on your private balcony overlooking the lively main road of Pefkochori. Furnished with outdoor seating and a dining table, it's the perfect spot for morning coffee or people-watching in the warm Greek evenings.",
     images: [
       "images/Balcony1.jpg",
       "images/Balcony2.jpg",
       "images/Balcony3.jpg"
     ],
-    features: ["Direct Sea View", "Outdoor Furniture", "Dining Area", "Sun Protection"]
+    features: ["Outdoor Furniture", "Dining Area", "Sun Protection", "Street View"]
   },
   {
     id: 'bedroom',
