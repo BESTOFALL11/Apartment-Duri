@@ -39,12 +39,30 @@
 
 <body class="min-h-screen bg-gradient-to-br from-sky-50 via-slate-50 to-stone-50">
 
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="min-h-screen flex items-center justify-center">
+        <div class="text-center">
+            <div
+                class="w-12 h-12 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4">
+            </div>
+            <p class="text-slate-500">Loading...</p>
+        </div>
+    </div>
+
     <!-- Login Screen -->
-    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+    <div id="loginScreen" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="glass rounded-3xl p-8 md:p-12 w-full max-w-md shadow-xl">
             <div class="text-center mb-8">
                 <h1 class="text-2xl font-bold text-brand-dark mb-2">Apartment Duri</h1>
                 <p class="text-slate-500">Admin Panel</p>
+                <div
+                    class="mt-4 flex items-center justify-center gap-2 text-xs text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Secured by Firebase
+                </div>
             </div>
 
             <form id="loginForm" class="space-y-4">
@@ -52,7 +70,7 @@
                     <label class="block text-sm font-medium text-slate-600 mb-2">Email</label>
                     <input type="email" id="email" required
                         class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all"
-                        placeholder="duriceka3@gmail.com">
+                        placeholder="your@email.com">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-600 mb-2">Password</label>
@@ -60,11 +78,11 @@
                         class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all"
                         placeholder="••••••••">
                 </div>
-                <button type="submit"
-                    class="w-full bg-brand-primary text-white py-4 rounded-xl font-bold hover:bg-sky-600 transition-colors mt-6">
+                <button type="submit" id="loginBtn"
+                    class="w-full bg-brand-primary text-white py-4 rounded-xl font-bold hover:bg-sky-600 transition-colors mt-6 disabled:opacity-50 disabled:cursor-not-allowed">
                     Sign In
                 </button>
-                <p id="loginError" class="text-red-500 text-sm text-center hidden">Invalid credentials</p>
+                <p id="loginError" class="text-red-500 text-sm text-center hidden"></p>
             </form>
         </div>
     </div>
@@ -76,7 +94,8 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h1 class="text-2xl font-bold text-brand-dark">Availability Manager</h1>
-                    <p class="text-slate-500 text-sm">Manage your apartment bookings</p>
+                    <p class="text-slate-500 text-sm">Logged in as <span id="userEmail"
+                            class="font-medium text-brand-primary"></span></p>
                 </div>
                 <div class="flex items-center gap-4">
                     <button id="syncBtn"
@@ -138,83 +157,121 @@
         </div>
     </div>
 
-    <script>
-        // Simple admin credentials (in production, use Firebase Auth)
-        const ADMIN_EMAIL = 'duriceka3@gmail.com';
-        const ADMIN_PASSWORD = 'duri2024'; // Change this to your preferred password
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-        // Storage keys
-        const STORAGE_KEY = 'apartment_duri_bookings';
-        const AUTH_KEY = 'apartment_duri_auth';
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9YwoFuZQijZIBiBsPqwKq5AybCu-0QXw",
+            authDomain: "apartment-duri.firebaseapp.com",
+            projectId: "apartment-duri",
+            storageBucket: "apartment-duri.firebasestorage.app",
+            messagingSenderId: "892495279470",
+            appId: "1:892495279470:web:f7675a1b0a737cd6dabd7f"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
         // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
         const loginScreen = document.getElementById('loginScreen');
         const adminDashboard = document.getElementById('adminDashboard');
         const loginForm = document.getElementById('loginForm');
         const loginError = document.getElementById('loginError');
-        const addBookingForm = document.getElementById('addBookingForm');
-        const bookingsList = document.getElementById('bookingsList');
-        const noBookings = document.getElementById('noBookings');
-        const bookingCount = document.getElementById('bookingCount');
-        const syncBtn = document.getElementById('syncBtn');
+        const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
-        const lastSyncInfo = document.getElementById('lastSyncInfo');
+        const userEmail = document.getElementById('userEmail');
 
-        // Check if already logged in
-        if (localStorage.getItem(AUTH_KEY) === 'true') {
-            showDashboard();
-        }
+        // Auth state listener - Firebase handles session persistence securely
+        onAuthStateChanged(auth, (user) => {
+            loadingScreen.classList.add('hidden');
+
+            if (user) {
+                // User is signed in
+                loginScreen.classList.add('hidden');
+                adminDashboard.classList.remove('hidden');
+                userEmail.textContent = user.email;
+                loadBookings();
+            } else {
+                // User is signed out
+                loginScreen.classList.remove('hidden');
+                adminDashboard.classList.add('hidden');
+            }
+        });
 
         // Login handler
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+            loginError.classList.add('hidden');
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-                localStorage.setItem(AUTH_KEY, 'true');
-                loginError.classList.add('hidden');
-                showDashboard();
-            } else {
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                // onAuthStateChanged will handle the UI update
+            } catch (error) {
+                loginError.textContent = getErrorMessage(error.code);
                 loginError.classList.remove('hidden');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
             }
         });
 
         // Logout handler
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem(AUTH_KEY);
-            loginScreen.classList.remove('hidden');
-            adminDashboard.classList.add('hidden');
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
         });
 
-        // Show dashboard
-        function showDashboard() {
-            loginScreen.classList.add('hidden');
-            adminDashboard.classList.remove('hidden');
-            loadBookings();
+        // Get user-friendly error message
+        function getErrorMessage(code) {
+            switch (code) {
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                case 'auth/invalid-credential':
+                    return 'Invalid email or password';
+                case 'auth/too-many-requests':
+                    return 'Too many failed attempts. Please try again later.';
+                case 'auth/network-request-failed':
+                    return 'Network error. Check your connection.';
+                default:
+                    return 'Login failed. Please try again.';
+            }
         }
 
-        // Load bookings from localStorage
-        function loadBookings() {
-            const bookings = getBookings();
-            renderBookings(bookings);
-        }
+        // Storage key
+        const STORAGE_KEY = 'apartment_duri_bookings';
 
-        // Get bookings from storage
+        // Booking functions
         function getBookings() {
             const data = localStorage.getItem(STORAGE_KEY);
             return data ? JSON.parse(data) : [];
         }
 
-        // Save bookings to storage
         function saveBookings(bookings) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings));
-            // Dispatch storage event for cross-tab sync
-            window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY }));
         }
 
-        // Render bookings list
+        function loadBookings() {
+            const bookings = getBookings();
+            renderBookings(bookings);
+        }
+
         function renderBookings(bookings) {
+            const bookingsList = document.getElementById('bookingsList');
+            const noBookings = document.getElementById('noBookings');
+            const bookingCount = document.getElementById('bookingCount');
+
             if (bookings.length === 0) {
                 bookingsList.innerHTML = '';
                 noBookings.classList.remove('hidden');
@@ -225,7 +282,6 @@
             noBookings.classList.add('hidden');
             bookingCount.textContent = `${bookings.length} booking${bookings.length > 1 ? 's' : ''}`;
 
-            // Sort by start date
             bookings.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
             bookingsList.innerHTML = bookings.map(booking => `
@@ -248,7 +304,7 @@
             </span>
             ${booking.source !== 'booking.com' ? `
               <button 
-                onclick="deleteBooking('${booking.id}')"
+                onclick="window.deleteBooking('${booking.id}')"
                 class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,7 +317,6 @@
       `).join('');
         }
 
-        // Format date range
         function formatDateRange(start, end) {
             const startDate = new Date(start);
             const endDate = new Date(end);
@@ -269,8 +324,17 @@
             return `${startDate.toLocaleDateString('en-US', options)} - ${endDate.toLocaleDateString('en-US', options)}, ${endDate.getFullYear()}`;
         }
 
+        // Delete booking (exposed globally for onclick)
+        window.deleteBooking = function (id) {
+            if (!confirm('Are you sure you want to delete this booking?')) return;
+            let bookings = getBookings();
+            bookings = bookings.filter(b => b.id !== id);
+            saveBookings(bookings);
+            renderBookings(bookings);
+        };
+
         // Add booking
-        addBookingForm.addEventListener('submit', (e) => {
+        document.getElementById('addBookingForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const startDate = document.getElementById('startDate').value;
             const endDate = document.getElementById('endDate').value;
@@ -293,21 +357,12 @@
 
             saveBookings(bookings);
             renderBookings(bookings);
-            addBookingForm.reset();
+            document.getElementById('addBookingForm').reset();
         });
 
-        // Delete booking
-        function deleteBooking(id) {
-            if (!confirm('Are you sure you want to delete this booking?')) return;
-
-            let bookings = getBookings();
-            bookings = bookings.filter(b => b.id !== id);
-            saveBookings(bookings);
-            renderBookings(bookings);
-        }
-
         // Sync from Booking.com
-        syncBtn.addEventListener('click', async () => {
+        document.getElementById('syncBtn').addEventListener('click', async () => {
+            const syncBtn = document.getElementById('syncBtn');
             syncBtn.disabled = true;
             syncBtn.innerHTML = `
         <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -324,17 +379,11 @@
                 if (icalData.includes('VCALENDAR')) {
                     const bookingComBookings = parseICalData(icalData);
                     let bookings = getBookings();
-
-                    // Remove old booking.com entries
                     bookings = bookings.filter(b => b.source !== 'booking.com');
-
-                    // Add new ones
                     bookings = [...bookings, ...bookingComBookings];
-
                     saveBookings(bookings);
                     renderBookings(bookings);
-
-                    lastSyncInfo.textContent = `Last synced: ${new Date().toLocaleString()}`;
+                    document.getElementById('lastSyncInfo').textContent = `Last synced: ${new Date().toLocaleString()}`;
                 }
             } catch (error) {
                 console.error('Sync failed:', error);
@@ -357,7 +406,6 @@
 
             events.forEach((event, index) => {
                 if (index === 0) return;
-
                 const startMatch = event.match(/DTSTART(?:;VALUE=DATE)?:(\d{8})/);
                 const endMatch = event.match(/DTEND(?:;VALUE=DATE)?:(\d{8})/);
 
