@@ -187,18 +187,22 @@ const Weather: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="md:hidden fixed bottom-24 left-4 z-40"
+                className="md:hidden fixed bottom-6 left-4 z-30"
             >
                 <button
                     onClick={() => setIsExpanded(true)}
-                    className="flex items-center gap-2 px-3 py-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-lg active:scale-95 transition-transform"
+                    className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-2xl border border-white/50 shadow-xl active:scale-95 transition-transform"
+                    style={{
+                        backdropFilter: 'blur(24px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(24px) saturate(180%)'
+                    }}
                 >
-                    <div className={`h-8 w-8 rounded-xl bg-gradient-to-br ${weatherInfo.gradient} flex items-center justify-center text-white shadow-sm`}>
-                        <WeatherIcon size={16} strokeWidth={2} />
+                    <div className={`h-9 w-9 rounded-xl bg-gradient-to-br ${weatherInfo.gradient} flex items-center justify-center text-white shadow-md`}>
+                        <WeatherIcon size={18} strokeWidth={2} />
                     </div>
                     <div className="text-left pr-1">
-                        <span className="text-lg font-bold text-brand-dark leading-none">{weather.temperature}°</span>
-                        <p className="text-[10px] text-slate-500 leading-tight">{LOCATION_NAME}</p>
+                        <span className="text-xl font-bold text-brand-dark leading-none">{weather.temperature}°</span>
+                        <p className="text-[10px] text-slate-600 font-medium leading-tight">{LOCATION_NAME}</p>
                     </div>
                 </button>
             </motion.div>
