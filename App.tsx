@@ -8,6 +8,7 @@ import Location from './components/Location';
 import Booking from './components/Booking';
 import Footer from './components/Footer';
 import Weather from './components/Weather';
+import Reviews from './components/Reviews';
 
 const App: React.FC = () => {
   const scrollToBook = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         <Marquee />
         <Showcase />
         <Amenities />
+        <Reviews />
         <Location />
         <Booking />
       </main>
