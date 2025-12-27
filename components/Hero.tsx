@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("images/Pefkochori_Panorama.png")',
+          backgroundImage: 'url("images/Pefkochori_Panorama.jpeg")',
           y
         }}
       >

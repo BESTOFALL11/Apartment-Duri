@@ -22,7 +22,7 @@ const Location: React.FC = () => {
             <div className="relative rounded-[3rem] overflow-hidden aspect-square md:aspect-video lg:aspect-[4/3] shadow-soft border border-white/60 group">
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110"
-                style={{ backgroundImage: 'url("images/Location.png")' }}
+                style={{ backgroundImage: 'url("images/Location.jpeg")' }}
               >
                 <div className="absolute inset-0 bg-slate-100/10 group-hover:bg-slate-100/0 transition-colors" />
               </div>
