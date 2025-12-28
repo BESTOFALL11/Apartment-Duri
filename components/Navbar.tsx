@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-heavy absolute w-full border-t border-white/40 overflow-hidden"
+            className="md:hidden absolute w-full border-t border-white/40 overflow-hidden z-[60] bg-white shadow-lg"
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {['Showcase', 'Amenities', 'Reviews', 'Location'].map((item) => (
