@@ -15,13 +15,15 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
+  const scrollToSection = (id: string) => {
     setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Small delay to allow the menu to close first
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const navClasses = `fixed w-full z-50 transition-all duration-300 ${scrolled
@@ -55,7 +57,7 @@ const Navbar: React.FC = () => {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                onClick={(e) => scrollToSection(e, item.toLowerCase())}
+                onClick={(e) => { e.preventDefault(); scrollToSection(item.toLowerCase()); }}
                 className={linkClasses}
               >
                 {item.toUpperCase()}
@@ -65,7 +67,7 @@ const Navbar: React.FC = () => {
 
             <motion.a
               href="#book"
-              onClick={(e) => scrollToSection(e, 'book')}
+              onClick={(e) => { e.preventDefault(); scrollToSection('book'); }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-6 py-2 rounded-full font-bold transition-all duration-300 bg-brand-primary text-white hover:bg-brand-secondary shadow-glow-sm hover:shadow-glow cursor-pointer"
@@ -96,18 +98,18 @@ const Navbar: React.FC = () => {
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {['Showcase', 'Amenities', 'Reviews', 'Location'].map((item) => (
-                <a
+                <button
                   key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={(e) => scrollToSection(e, item.toLowerCase())}
-                  className="block px-3 py-3 text-base font-bold text-slate-800 hover:bg-brand-primary/10 hover:text-brand-primary rounded-lg cursor-pointer transition-colors"
+                  type="button"
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className="block w-full text-left px-3 py-3 text-base font-bold text-slate-800 hover:bg-brand-primary/10 hover:text-brand-primary rounded-lg cursor-pointer transition-colors"
                 >
                   {item}
-                </a>
+                </button>
               ))}
-              <a href="#book" onClick={(e) => scrollToSection(e, 'book')} className="block w-full text-center px-5 py-3 mt-4 bg-brand-primary text-white font-bold rounded-lg shadow-glow-sm cursor-pointer hover:bg-brand-secondary transition-all">
+              <button type="button" onClick={() => scrollToSection('book')} className="block w-full text-center px-5 py-3 mt-4 bg-brand-primary text-white font-bold rounded-lg shadow-glow-sm cursor-pointer hover:bg-brand-secondary transition-all">
                 Book Your Stay
-              </a>
+              </button>
             </div>
           </motion.div>
         )}
