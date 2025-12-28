@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
   };
 
   const navClasses = `fixed w-full z-50 transition-all duration-300 ${scrolled
-      ? 'glass-nav py-4 shadow-sm'
-      : 'bg-white/80 backdrop-blur-sm py-6 border-b border-white/30'
+    ? 'glass-nav py-4 shadow-sm'
+    : 'bg-white/80 backdrop-blur-sm py-6 border-b border-white/30'
     }`;
 
   const linkClasses = `text-sm font-bold tracking-wide transition-colors duration-200 text-slate-800 hover:text-brand-primary hover:drop-shadow-sm cursor-pointer relative group`;
@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden md:flex space-x-10 items-center">
-            {['Showcase', 'Amenities', 'Location'].map((item) => (
+            {['Showcase', 'Amenities', 'Reviews', 'Location'].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
             className="md:hidden glass-heavy absolute w-full border-t border-white/40 overflow-hidden"
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
-              {['Showcase', 'Amenities', 'Location'].map((item) => (
+              {['Showcase', 'Amenities', 'Reviews', 'Location'].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
