@@ -97,6 +97,7 @@ const AvailabilityCalendar: React.FC = () => {
 
             // Try multiple CORS proxies in order of reliability
             const proxies = [
+                `https://api.codetabs.com/v1/proxy/?quest=${ICAL_URL}`,
                 `https://corsproxy.io/?${encodeURIComponent(ICAL_URL)}`,
                 `https://api.allorigins.win/raw?url=${encodeURIComponent(ICAL_URL)}`,
                 `https://cors-anywhere.herokuapp.com/${ICAL_URL}`

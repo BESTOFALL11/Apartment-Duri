@@ -324,7 +324,7 @@
             try {
                 const timestamp = new Date().getTime();
                 const ICAL_URL = `https://ical.booking.com/v1/export?t=ca8fbb03-b908-40b9-bcf9-37121756164d&cb=${timestamp}`;
-                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(ICAL_URL)}`;
+                const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${ICAL_URL}`;
                 
                 const response = await fetch(proxyUrl);
                 const icalData = await response.text();
