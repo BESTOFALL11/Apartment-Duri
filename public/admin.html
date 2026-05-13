@@ -326,15 +326,7 @@
                 const ICAL_URL = `https://ical.booking.com/v1/export?t=ca8fbb03-b908-40b9-bcf9-37121756164d&cb=${timestamp}`;
                 const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(ICAL_URL)}`;
                 
-                const response = await fetch(proxyUrl, {
-                    headers: {
-                        'Accept': 'text/calendar',
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
-                    },
-                    cache: 'no-store'
-                });
+                const response = await fetch(proxyUrl);
                 const icalData = await response.text();
 
                 if (icalData.includes('VCALENDAR')) {

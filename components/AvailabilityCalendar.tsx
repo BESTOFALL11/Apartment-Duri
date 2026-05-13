@@ -106,15 +106,7 @@ const AvailabilityCalendar: React.FC = () => {
 
             for (const proxyUrl of proxies) {
                 try {
-                    const response = await fetch(proxyUrl, {
-                        headers: { 
-                            'Accept': 'text/calendar',
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        },
-                        cache: 'no-store'
-                    });
+                    const response = await fetch(proxyUrl);
                     if (response.ok) {
                         icalData = await response.text();
                         if (icalData.includes('VCALENDAR')) {
