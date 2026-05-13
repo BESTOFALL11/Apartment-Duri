@@ -91,7 +91,9 @@ const AvailabilityCalendar: React.FC = () => {
     const fetchBookings = async () => {
         setSyncing(true);
         try {
-            const ICAL_URL = 'https://ical.booking.com/v1/export?t=ca8fbb03-b908-40b9-bcf9-37121756164d';
+            // Add cache buster to ensure proxies treat it as a new URL
+            const timestamp = new Date().getTime();
+            const ICAL_URL = `https://ical.booking.com/v1/export?t=ca8fbb03-b908-40b9-bcf9-37121756164d&cb=${timestamp}`;
 
             // Try multiple CORS proxies in order of reliability
             const proxies = [
@@ -105,7 +107,13 @@ const AvailabilityCalendar: React.FC = () => {
             for (const proxyUrl of proxies) {
                 try {
                     const response = await fetch(proxyUrl, {
-                        headers: { 'Accept': 'text/calendar' }
+                        headers: { 
+                            'Accept': 'text/calendar',
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        },
+                        cache: 'no-store'
                     });
                     if (response.ok) {
                         icalData = await response.text();
@@ -133,40 +141,14 @@ const AvailabilityCalendar: React.FC = () => {
     };
 
     useEffect(() => {
-        // Load manual bookings from localStorage (set by admin panel)
-        const loadManualBookings = () => {
-            try {
-                const stored = localStorage.getItem('apartment_duri_bookings');
-                if (stored) {
-                    const manualBookings = JSON.parse(stored) as Booking[];
-                    setBookings(prev => {
-                        // Keep only Booking.com bookings from API, add manual ones from storage
-                        const apiBookings = prev.filter(b => b.source === 'booking.com' && b.id.startsWith('ical-'));
-                        return [...apiBookings, ...manualBookings];
-                    });
-                }
-            } catch (e) {
-                console.error('Failed to load manual bookings:', e);
-            }
-        };
-
         // Initial fetch
-        fetchBookings().then(loadManualBookings);
-
-        // Listen for storage changes (when admin adds/removes bookings)
-        const handleStorageChange = (e: StorageEvent) => {
-            if (e.key === 'apartment_duri_bookings') {
-                loadManualBookings();
-            }
-        };
-        window.addEventListener('storage', handleStorageChange);
+        fetchBookings();
 
         // Refresh every 30 minutes
         const interval = setInterval(fetchBookings, 30 * 60 * 1000);
 
         return () => {
             clearInterval(interval);
-            window.removeEventListener('storage', handleStorageChange);
         };
     }, []);
 

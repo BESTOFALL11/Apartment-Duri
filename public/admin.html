@@ -113,32 +113,7 @@
                 </div>
             </div>
 
-            <!-- Add Booking Form -->
-            <div class="glass rounded-2xl p-6 mb-6 shadow-lg">
-                <h2 class="text-lg font-bold text-brand-dark mb-4">Add Manual Booking</h2>
-                <form id="addBookingForm" class="flex flex-wrap gap-4 items-end">
-                    <div class="flex-1 min-w-[150px]">
-                        <label class="block text-sm font-medium text-slate-600 mb-2">Check-in Date</label>
-                        <input type="date" id="startDate" required
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-primary outline-none">
-                    </div>
-                    <div class="flex-1 min-w-[150px]">
-                        <label class="block text-sm font-medium text-slate-600 mb-2">Check-out Date</label>
-                        <input type="date" id="endDate" required
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-primary outline-none">
-                    </div>
-                    <div class="flex-1 min-w-[150px]">
-                        <label class="block text-sm font-medium text-slate-600 mb-2">Guest Name (optional)</label>
-                        <input type="text" id="guestName"
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-primary outline-none"
-                            placeholder="Guest name">
-                    </div>
-                    <button type="submit"
-                        class="px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-sky-600 transition-colors">
-                        Add Booking
-                    </button>
-                </form>
-            </div>
+            <!-- Add Booking Form Removed -->
 
             <!-- Bookings List -->
             <div class="glass rounded-2xl p-6 shadow-lg">
@@ -333,32 +308,7 @@
             renderBookings(bookings);
         };
 
-        // Add booking
-        document.getElementById('addBookingForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            const guestName = document.getElementById('guestName').value;
-
-            if (new Date(endDate) < new Date(startDate)) {
-                alert('Check-out date must be after check-in date');
-                return;
-            }
-
-            const bookings = getBookings();
-            bookings.push({
-                id: Date.now().toString(),
-                startDate,
-                endDate,
-                guestName: guestName || null,
-                source: 'manual',
-                createdAt: new Date().toISOString()
-            });
-
-            saveBookings(bookings);
-            renderBookings(bookings);
-            document.getElementById('addBookingForm').reset();
-        });
+        // Add booking form removed
 
         // Sync from Booking.com
         document.getElementById('syncBtn').addEventListener('click', async () => {
@@ -372,8 +322,19 @@
       `;
 
             try {
-                const ICAL_URL = 'https://ical.booking.com/v1/export?t=ca8fbb03-b908-40b9-bcf9-37121756164d';
-                const response = await fetch(`https://corsproxy.io/?${encodeURIComponent(ICAL_URL)}`);
+                const timestamp = new Date().getTime();
+                const ICAL_URL = `https://ical.booking.com/v1/export?t=ca8fbb03-b908-40b9-bcf9-37121756164d&cb=${timestamp}`;
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(ICAL_URL)}`;
+                
+                const response = await fetch(proxyUrl, {
+                    headers: {
+                        'Accept': 'text/calendar',
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    },
+                    cache: 'no-store'
+                });
                 const icalData = await response.text();
 
                 if (icalData.includes('VCALENDAR')) {
